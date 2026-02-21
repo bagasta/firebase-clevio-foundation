@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Input Data — Firebase Firestore</title>
+    <meta name="description" content="Form input data pengguna ke Firebase Firestore" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <div class="page-wrapper">
+
+      <!-- Header -->
+      <header class="header">
+        <div class="header__icon">🔥</div>
+        <h1 class="header__title">Firebase Data Entry</h1>
+        <p class="header__subtitle">Isi form di bawah untuk menyimpan data ke Firestore</p>
+      </header>
+
+      <!-- Card Form -->
+      <main class="card">
+        <form id="dataForm" class="form" novalidate>
+
+          <!-- Nama -->
+          <div class="form__group" id="group-nama">
+            <label class="form__label" for="nama">
+              <span class="form__label-icon">👤</span> Nama Lengkap
+            </label>
+            <input
+              class="form__input"
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Masukkan nama lengkap..."
+              autocomplete="name"
+              required
+            />
+            <span class="form__error" id="error-nama"></span>
+          </div>
+
+          <!-- Umur -->
+          <div class="form__group" id="group-umur">
+            <label class="form__label" for="umur">
+              <span class="form__label-icon">🎂</span> Umur
+            </label>
+            <input
+              class="form__input"
+              type="number"
+              id="umur"
+              name="umur"
+              placeholder="Masukkan umur..."
+              min="1"
+              max="120"
+              required
+            />
+            <span class="form__error" id="error-umur"></span>
+          </div>
+
+          <!-- Hobby -->
+          <div class="form__group" id="group-hobby">
+            <label class="form__label" for="hobby">
+              <span class="form__label-icon">🎯</span> Hobby
+            </label>
+            <input
+              class="form__input"
+              type="text"
+              id="hobby"
+              name="hobby"
+              placeholder="Contoh: Membaca, Bermain gitar..."
+              required
+            />
+            <span class="form__error" id="error-hobby"></span>
+          </div>
+
+          <!-- Cita-cita -->
+          <div class="form__group" id="group-citacita">
+            <label class="form__label" for="citacita">
+              <span class="form__label-icon">🚀</span> Cita-cita
+            </label>
+            <input
+              class="form__input"
+              type="text"
+              id="citacita"
+              name="citacita"
+              placeholder="Contoh: Menjadi dokter, engineer..."
+              required
+            />
+            <span class="form__error" id="error-citacita"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn-submit" type="submit" id="submitBtn">
+            <span class="btn-submit__text">Simpan Data</span>
+            <span class="btn-submit__spinner" aria-hidden="true"></span>
+          </button>
+
+        </form>
+      </main>
+
+      <!-- Toast Notification -->
+      <div class="toast" id="toast" role="alert" aria-live="polite">
+        <span class="toast__icon" id="toastIcon"></span>
+        <span class="toast__message" id="toastMessage"></span>
+      </div>
+
+    </div>
+
+    <!-- Firebase SDK (v11) -->
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

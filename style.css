@@ -1,0 +1,275 @@
+/* ============================================================
+   CSS Custom Properties (Design Tokens)
+   ============================================================ */
+:root {
+  --clr-bg-start:   #0f0c29;
+  --clr-bg-mid:     #302b63;
+  --clr-bg-end:     #24243e;
+
+  --clr-card-bg:    rgba(255, 255, 255, 0.07);
+  --clr-card-border:rgba(255, 255, 255, 0.15);
+
+  --clr-input-bg:   rgba(255, 255, 255, 0.06);
+  --clr-input-border:rgba(255, 255, 255, 0.2);
+  --clr-input-focus: #7c6aff;
+
+  --clr-accent:     #7c6aff;
+  --clr-accent-hover:#6a57e8;
+  --clr-error:      #ff6b6b;
+  --clr-success:    #43e97b;
+
+  --clr-text-primary:   #f0f0f8;
+  --clr-text-secondary: rgba(240, 240, 248, 0.6);
+
+  --radius-card:    20px;
+  --radius-input:   12px;
+  --radius-btn:     12px;
+
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --transition:  0.25s ease;
+
+  --font: 'Inter', sans-serif;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background: linear-gradient(135deg, var(--clr-bg-start), var(--clr-bg-mid), var(--clr-bg-end));
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: var(--clr-text-primary);
+}
+
+/* ============================================================
+   Page Wrapper
+   ============================================================ */
+.page-wrapper {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.header__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #fff 30%, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header__subtitle {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-secondary);
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.card {
+  background: var(--clr-card-bg);
+  border: 1px solid var(--clr-card-border);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   Form
+   ============================================================ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Group */
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Label */
+.form__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.form__label-icon {
+  font-size: 1rem;
+}
+
+/* Input */
+.form__input {
+  background: var(--clr-input-bg);
+  border: 1px solid var(--clr-input-border);
+  border-radius: var(--radius-input);
+  color: var(--clr-text-primary);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  width: 100%;
+}
+
+.form__input::placeholder {
+  color: var(--clr-text-secondary);
+  font-size: 0.88rem;
+}
+
+.form__input:focus {
+  border-color: var(--clr-input-focus);
+  background: rgba(124, 106, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(124, 106, 255, 0.2);
+}
+
+/* Input error state */
+.form__group--error .form__input {
+  border-color: var(--clr-error);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.18);
+}
+
+/* Error message */
+.form__error {
+  font-size: 0.78rem;
+  color: var(--clr-error);
+  min-height: 1rem;
+  display: block;
+}
+
+/* ============================================================
+   Submit Button
+   ============================================================ */
+.btn-submit {
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, var(--clr-accent), #a78bfa);
+  border: none;
+  border-radius: var(--radius-btn);
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.85rem;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 106, 255, 0.45);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.btn-submit__spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.btn-submit.loading .btn-submit__spinner {
+  display: block;
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(6rem);
+  background: rgba(30, 30, 50, 0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50px;
+  backdrop-filter: blur(12px);
+  color: var(--clr-text-primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.7rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  white-space: nowrap;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 520px) {
+  .card { padding: 1.5rem 1.25rem; }
+  .header__title { font-size: 1.4rem; }
+}
