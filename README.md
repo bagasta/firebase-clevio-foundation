@@ -91,24 +91,29 @@ Sebelum mulai, pastikan kamu sudah punya:
 
    Atau klik tombol **"Code" → "Download ZIP"** di GitHub, lalu ekstrak.
 
-2. **Buka folder** `firebase-db` di VS Code:
+2. **Buka folder** di VS Code:
    - Buka VS Code
-   - Klik **File → Open Folder** → pilih folder `firebase-db`
+   - Klik **File → Open Folder** → pilih folder hasil clone/ekstrak
 
-3. **Buka file `script.js`**, cari bagian ini di baris atas:
+3. Di sidebar VS Code, cari file **`firebase-config.example.js`** → **klik kanan → Rename** (atau duplikat) menjadi **`firebase-config.js`**
+
+   > ⚠️ Nama filenya **harus persis** `firebase-config.js` — jangan sampai salah!
+
+4. **Buka file `firebase-config.js`**, kamu akan melihat tampilan seperti ini:
 
    ```javascript
-   const firebaseConfig = {
+   export const firebaseConfig = {
      apiKey: "YOUR_API_KEY",
-     authDomain: "YOUR_AUTH_DOMAIN",
+     authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+     projectId: "YOUR_PROJECT_ID",
      ...
    };
    ```
 
-4. **Ganti** semua nilai `"YOUR_..."` dengan konfigurasi yang kamu copy dari Firebase tadi. Contoh hasil akhirnya:
+5. **Ganti** semua nilai `"YOUR_..."` dengan konfigurasi yang kamu copy dari Firebase tadi. Contoh hasil akhirnya:
 
    ```javascript
-   const firebaseConfig = {
+   export const firebaseConfig = {
      apiKey: "AIzaSyCmZR...",
      authDomain: "belajar-firestore.firebaseapp.com",
      projectId: "belajar-firestore",
@@ -118,7 +123,9 @@ Sebelum mulai, pastikan kamu sudah punya:
    };
    ```
 
-5. Simpan file dengan **`Ctrl + S`**
+6. Simpan file dengan **`Ctrl + S`**
+
+   > ✅ File `firebase-config.js` sudah masuk `.gitignore` — jadi **tidak akan ikut ke-push ke GitHub**. Aman!
 
 ---
 
@@ -160,21 +167,31 @@ Sebelum mulai, pastikan kamu sudah punya:
 
 ## 8. ⚠️ Keamanan API Key Firebase
 
-### "Apakah aman meng-upload API key ke GitHub?"
+### Kenapa API key tidak boleh di-push ke GitHub?
 
-Jawabannya: **Tidak sepenuhnya aman, tapi Firebase punya cara perlindungannya sendiri.**
+API key Firebase yang bocor ke publik bisa disalahgunakan orang lain untuk:
+- Menulis data spam ke database kamu
+- Menghabiskan kuota gratis Firebase kamu
+- Mengakses data jika Security Rules tidak ketat
 
-Tidak seperti password, API key Firebase **memang dirancang untuk ada di kode frontend** (sisi klien). API key ini hanya berfungsi untuk **mengidentifikasi project** kamu di server Google — bukan untuk memberikan akses penuh.
+### ✅ Cara Aman di Proyek Ini
 
-**Yang benar-benar melindungi data kamu adalah → Firebase Security Rules.**
+Proyek ini sudah menggunakan pendekatan yang aman:
+
+- **`firebase-config.js`** → berisi API key asli, **hanya ada di komputer kamu**, tidak pernah ke-push (sudah masuk `.gitignore`)
+- **`firebase-config.example.js`** → berisi placeholder kosong, yang ini boleh di-push ke GitHub sebagai panduan
+- **`script.js`** → tidak mengandung API key sama sekali, hanya mengimport dari `firebase-config.js`
+
+```
+✅ Yang ada di GitHub:   firebase-config.example.js  (placeholder)
+🔒 Yang TIDAK di GitHub: firebase-config.js           (API key asli)
+```
 
 ---
 
-### ✅ Yang Harus Dilakukan Sebelum Push ke GitHub
+### Langkah Tambahan — Perketat Firebase Security Rules
 
-#### Langkah 1 — Perketat Firebase Security Rules
-
-Secara default, test mode mengizinkan siapa saja membaca dan menulis. Ubah aturannya:
+Selain menyembunyikan config, kamu juga perlu memperketat aturan akses database:
 
 1. Di Firebase Console → **Firestore Database → Rules**
 2. Ganti rule-nya menjadi seperti ini:
@@ -194,23 +211,15 @@ Secara default, test mode mengizinkan siapa saja membaca dan menulis. Ubah atura
 
 3. Klik **Publish** ✅
 
-#### Langkah 2 — Batasi API Key di Google Cloud Console
-
-1. Buka **[https://console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)**
-2. Pilih project Firebase kamu
-3. Klik nama API key kamu → di bagian **"Application restrictions"**, pilih **HTTP referrers**
-4. Tambahkan domain kamu, contoh: `http://127.0.0.1:5500/*` (untuk lokal) atau domain GitHub Pages kamu
-5. Klik **Save**
-
 ---
 
 ### 📌 Ringkasan Keamanan
 
 | Situasi | Aman? |
 |---|---|
-| API key di GitHub tanpa Security Rules | ❌ Berbahaya |
-| API key di GitHub + Security Rules yang ketat | ✅ Aman untuk belajar |
-| API key di GitHub + Security Rules + Pembatasan domain | ✅ Lebih aman |
+| API key langsung di `script.js` lalu di-push | ❌ Berbahaya |
+| Config dipisah ke `firebase-config.js` + `.gitignore` | ✅ Aman |
+| + Security Rules yang ketat | ✅ Lebih aman |
 | Proyek production sungguhan | Gunakan **Firebase Authentication** + Rules berbasis user |
 
 ---
@@ -218,12 +227,17 @@ Secara default, test mode mengizinkan siapa saja membaca dan menulis. Ubah atura
 ## 📁 Struktur File
 
 ```
-firebase-db/
-├── index.html   → Struktur tampilan form
-├── style.css    → Tampilan/desain (warna, animasi, layout)
-├── script.js    → Logika JavaScript + koneksi Firebase
-└── README.md    → Panduan ini
+firebase-clevio-foundation/
+├── .gitignore                  → Mencegah firebase-config.js ke-push
+├── firebase-config.example.js  → Template config (isi placeholder, BOLEH di GitHub)
+├── firebase-config.js          → Config asli dengan API key (TIDAK di GitHub ⛔)
+├── index.html                  → Struktur tampilan form
+├── style.css                   → Tampilan/desain (warna, animasi, layout)
+├── script.js                   → Logika JavaScript + validasi + kirim ke Firestore
+└── README.md                   → Panduan ini
 ```
+
+> 💡 File `firebase-config.js` **tidak akan muncul di GitHub** karena sudah masuk `.gitignore`. Ini adalah cara yang benar agar API key tetap pribadi.
 
 ---
 
