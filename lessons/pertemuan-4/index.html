@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pertemuan 4 — CRUD Lengkap 🚀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header class="header">
+            <div class="badge">Pertemuan 4 — DELETE + Final</div>
+            <h1 class="title">🎌 Anime Watch Tracker</h1>
+            <p class="subtitle">Aplikasi CRUD lengkap dengan Firebase Firestore</p>
+        </header>
+
+        <!-- ✨ BARU P4: Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="statTotal">0</span>
+                <span class="stat-label">Total Anime</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statSudah">0</span>
+                <span class="stat-label">Sudah Nonton</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statRating">-</span>
+                <span class="stat-label">Rata-rata ⭐</span>
+            </div>
+        </div>
+
+        <main class="card">
+            <div class="mode-bar" id="modeBar">
+                <h2 class="card-title" id="formTitle">➕ Tambah Anime Baru</h2>
+                <button type="button" id="cancelBtn" class="btn-cancel" style="display:none">✖ Batal</button>
+            </div>
+
+            <form id="animeForm" class="form" novalidate>
+
+                <div class="form-group">
+                    <label for="judul">📺 Judul Anime</label>
+                    <input type="text" id="judul" placeholder="Contoh: Attack on Titan..." />
+                    <span class="error" id="errorJudul"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">🎭 Genre</label>
+                    <select id="genre">
+                        <option value="">-- Pilih Genre --</option>
+                        <option value="Action">⚔️ Action</option>
+                        <option value="Romance">💕 Romance</option>
+                        <option value="Comedy">😂 Comedy</option>
+                        <option value="Isekai">🌍 Isekai</option>
+                        <option value="Horror">👻 Horror</option>
+                        <option value="Slice of Life">🌸 Slice of Life</option>
+                    </select>
+                    <span class="error" id="errorGenre"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>⭐ Rating</label>
+                    <div class="star-row" id="starRow">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="rating" />
+                    <span class="error" id="errorRating"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">📋 Status Nonton</label>
+                    <select id="status">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Mau Nonton">🔖 Mau Nonton</option>
+                        <option value="Lagi Nonton">▶️ Lagi Nonton</option>
+                        <option value="Sudah Nonton">✅ Sudah Nonton</option>
+                    </select>
+                    <span class="error" id="errorStatus"></span>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">
+                    <span class="btn-text">💾 Simpan ke Firestore</span>
+                    <span class="spinner" aria-hidden="true"></span>
+                </button>
+
+            </form>
+        </main>
+
+        <section class="list-section">
+            <h2 class="list-title">
+                📋 Koleksi Anime Kamu
+                <span class="count-badge" id="animeCount">0</span>
+            </h2>
+            <div id="animeList" class="anime-grid">
+                <p class="state-text">⏳ Memuat data...</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ✨ BARU P4: Modal Konfirmasi Hapus -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <p class="modal-emoji">🗑️</p>
+            <h3 class="modal-title">Hapus Anime?</h3>
+            <p class="modal-desc" id="modalDesc">Data ini akan dihapus permanen dari Firestore.</p>
+            <div class="modal-actions">
+                <button id="modalCancel" class="btn-modal-cancel">Batal</button>
+                <button id="modalConfirm" class="btn-modal-delete">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"><span id="toastMsg"></span></div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

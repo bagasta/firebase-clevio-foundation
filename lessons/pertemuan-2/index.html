@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pertemuan 2 — Tampilkan Data 📋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header class="header">
+            <div class="badge">Pertemuan 2 — READ</div>
+            <h1 class="title">🎌 Anime Watch Tracker</h1>
+            <p class="subtitle">Belajar menampilkan data dari Firestore secara real-time</p>
+        </header>
+
+        <main class="card">
+            <h2 class="card-title">➕ Tambah Anime Baru</h2>
+            <form id="animeForm" class="form" novalidate>
+
+                <div class="form-group">
+                    <label for="judul">📺 Judul Anime</label>
+                    <input type="text" id="judul" placeholder="Contoh: Attack on Titan..." />
+                    <span class="error" id="errorJudul"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">🎭 Genre</label>
+                    <select id="genre">
+                        <option value="">-- Pilih Genre --</option>
+                        <option value="Action">⚔️ Action</option>
+                        <option value="Romance">💕 Romance</option>
+                        <option value="Comedy">😂 Comedy</option>
+                        <option value="Isekai">🌍 Isekai</option>
+                        <option value="Horror">👻 Horror</option>
+                        <option value="Slice of Life">🌸 Slice of Life</option>
+                    </select>
+                    <span class="error" id="errorGenre"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>⭐ Rating</label>
+                    <div class="star-row" id="starRow">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="rating" />
+                    <span class="error" id="errorRating"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">📋 Status Nonton</label>
+                    <select id="status">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Mau Nonton">🔖 Mau Nonton</option>
+                        <option value="Lagi Nonton">▶️ Lagi Nonton</option>
+                        <option value="Sudah Nonton">✅ Sudah Nonton</option>
+                    </select>
+                    <span class="error" id="errorStatus"></span>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">
+                    <span class="btn-text">💾 Simpan ke Firestore</span>
+                    <span class="spinner" aria-hidden="true"></span>
+                </button>
+
+            </form>
+        </main>
+
+        <!-- ✨ BARU di P2: Daftar Anime Real-time -->
+        <section class="list-section">
+            <h2 class="list-title">
+                📋 Koleksi Anime Kamu
+                <span class="count-badge" id="animeCount">0</span>
+            </h2>
+            <div id="animeList" class="anime-grid">
+                <p class="state-text">⏳ Memuat data...</p>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="toast" id="toast"><span id="toastMsg"></span></div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

@@ -3,3 +3,4 @@ node_modules/
 
 # Firebase config pribadi — JANGAN di-push ke GitHub!
 firebase-config.js
+lessons/firebase-config.js
